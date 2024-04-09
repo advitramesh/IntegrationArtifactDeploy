@@ -1,4 +1,4 @@
   steps:
   integrationArtifactDeploy:
-    cpiApiServiceKeyCredentialsId: cpidevServiceKeyCredential
+    cpiApiServiceKeyCredentialsId: sapcpidevServiceKeyCredentials
     integrationFlowId: Advit_Test_mapping
