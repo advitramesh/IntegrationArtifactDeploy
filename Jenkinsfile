@@ -6,16 +6,9 @@ node() {
         checkout scm
     }
     stage('deployIntegrationArtifact Command') {
-        try {
-            // Your integrationArtifactDeploy step call
-            integrationArtifactDeploy script: this
+        withCredentials([string(credentialsId: 'sapcpidevServiceKeyCredentials', variable: 'PIPER_apiServiceKey')]) {
 
-        } catch (Exception e) {
-            // Logging the error message
-            echo "Error during integrationArtifactDeploy: ${e.getMessage()}"
-            
-            // Re-throw the exception to mark the build as failed
-            throw e
+            integrationArtifactDeploy script: this
         }
     }
 }
