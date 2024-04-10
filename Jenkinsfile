@@ -9,8 +9,16 @@ node() {
         script {
             // Read the configuration from the .yml file
             def config = readYaml file: './.pipeline/config.yml'
+
+            // Log the loaded configuration for debugging
+            echo "Loaded configuration: ${config}"
+            
             // Extract the integrationFlowId from the config file
             def flowId = config.steps.integrationArtifactDeploy.integrationFlowId
+
+            // Echoing the flowId for debugging purposes
+            echo "Integration Flow ID: ${flowId}"
+            
             // Use the credentialId from the config file
             def credentialsId = config.steps.integrationArtifactDeploy.cpiApiServiceKeyCredentialsId
 
