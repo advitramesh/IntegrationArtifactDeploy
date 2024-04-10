@@ -6,11 +6,18 @@ node() {
         checkout scm
     }
     stage('deployIntegrationArtifact Command') {
-        // Assuming you have set CPI_FLOW_ID as a global environment variable
-        withCredentials([string(credentialsId: 'sapcpidevServiceKeyCredentials', variable: 'PIPER_apiServiceKey')]) {
-            // Retrieve the global variable and pass it to the integrationArtifactDeploy
-            def flowId = env.Deploy_IntegrationFlowID
-            integrationArtifactDeploy(script: this, integrationFlowId: flowId)
+        script {
+            // Read the configuration from the .yml file
+            def config = readYaml file: './.pipeline/config.yml'
+            // Extract the integrationFlowId from the config file
+            def flowId = config.steps.integrationArtifactDeploy.integrationFlowId
+            // Use the credentialId from the config file
+            def credentialsId = config.steps.integrationArtifactDeploy.cpiApiServiceKeyCredentialsId
+
+            // Now use these values in the withCredentials and integrationArtifactDeploy steps
+            withCredentials([string(credentialsId: credentialsId, variable: 'PIPER_apiServiceKey')]) {
+                integrationArtifactDeploy(script: this, integrationFlowId: flowId)
+            }
         }
     }
 }
