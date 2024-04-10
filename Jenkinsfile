@@ -8,7 +8,7 @@ node() {
     stage('deployIntegrationArtifact Command') {
         script {
             // Read the configuration from the .yml file
-            def config = readYaml file: './.pipeline/config.yml'
+            def config = readYaml file: '/.pipeline/config.yml'
 
             // Log the loaded configuration for debugging
             echo "Loaded configuration: ${config}"
