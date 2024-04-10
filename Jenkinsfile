@@ -7,7 +7,7 @@ node() {
     }
     stage('deployIntegrationArtifact Command') {
         // Assuming you have set CPI_FLOW_ID as a global environment variable
-        withCredentials([string(credentialsId: 'cpiServiceKey', variable: 'PIPER_apiServiceKey')]) {
+        withCredentials([string(credentialsId: 'sapcpidevServiceKeyCredentials', variable: 'PIPER_apiServiceKey')]) {
             // Retrieve the global variable and pass it to the integrationArtifactDeploy
             def flowId = env.Deploy_IntegrationFlowID
             integrationArtifactDeploy(script: this, integrationFlowId: flowId)
